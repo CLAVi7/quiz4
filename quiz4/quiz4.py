@@ -17,7 +17,7 @@ def inicializar(sort, tamaño):
         if sort == "bubble_sort":
             bubble_sort(aleatorios)
         else:
-            pass #quick_sort(aleatorios)
+            quicksort(aleatorios)
         fin_time = time.time()
         time3 += fin_time-start_time
     return time3/10
@@ -35,64 +35,32 @@ def bubble_sort(lista):
                 swapped = True
                 lista[i], lista[i + 1] = lista[i + 1], lista[i]
 
-# Python program for implementation of Quicksort Sort
 
-# This implementation utilizes pivot as the last element in the nums list
-# It has a pointer to keep track of the elements smaller than the pivot
-# At the very end of partition() function, the pointer is swapped with the pivot
-# to come up with a "sorted" nums relative to the pivot
-
-
-# Function to find the partition position
 #https://www.geeksforgeeks.org/python-program-for-quicksort/
-def partition(array, low, high):
+# Approach 2: Quicksort using list comprehension
 
-    # choose the rightmost element as pivot
-    pivot = array[high]
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[0]
+        left = [x for x in arr[1:] if x < pivot]
+        right = [x for x in arr[1:] if x >= pivot]
 
-    # pointer for greater element
-    i = low - 1
+        return quicksort(left) + [pivot] + quicksort(right)
 
-    # traverse through all elements
-    # compare each element with pivot
-    for j in range(low, high):
-        if array[j] <= pivot:
-
-            # If element smaller than pivot is found
-            # swap it with the greater element pointed by i
-            i = i + 1
-
-            # Swapping element at i with element at j
-            (array[i], array[j]) = (array[j], array[i])
-
-    # Swap the pivot element with the greater element specified by i
-    (array[i + 1], array[high]) = (array[high], array[i + 1])
-
-    # Return the position from where partition is done
-    return i + 1
-
-# function to perform quicksort
-
-
-def quickSort(array, low, high):
-    if low < high:
-
-        # Find pivot element such that
-        # element smaller than pivot are on the left
-        # element greater than pivot are on the right
-        pi = partition(array, low, high)
-
-        # Recursive call on the left of pivot
-        quickSort(array, low, pi - 1)
-
-        # Recursive call on the right of pivot
-        quickSort(array, pi + 1, high)
+# Example usage
 
 
 
-
-print(inicializar("bubble_sort", 1000))#retorna el promedio del tiempo
+"""print(inicializar("bubble_sort", 1000))#retorna el promedio del tiempo
 print(inicializar("bubble_sort", 2000))
 print(inicializar("bubble_sort", 3000))
 print(inicializar("bubble_sort", 4000))
-print(inicializar("bubble_sort", 5000))
+print(inicializar("bubble_sort", 5000))"""
+
+print(inicializar("quicksort", 1000))#retorna el promedio del tiempo
+print(inicializar("quicksort", 2000))
+print(inicializar("quicksort", 3000))
+print(inicializar("quicksort", 4000))
+print(inicializar("quicksort", 5000))
